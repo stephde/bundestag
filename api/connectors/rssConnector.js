@@ -1,6 +1,6 @@
 const Watcher = require('rss-watcher')
-
-const BUNDESTAG_FEED_URL = 'https://www.bundestag.de/static/appdata/includes/rss/aktuellethemen.rss'
+const Article = require('../db/article')
+const config = require('../config')
 
 const options = {interval: 60}
 
@@ -9,7 +9,7 @@ module.exports = {
 }
 
 function initWatcher () {
-  const watcher = new Watcher(BUNDESTAG_FEED_URL)
+  const watcher = new Watcher(config.rssFeedUri)
   watcher.set(options)
 
   watcher.on('new article', handleNewArticle)
@@ -19,10 +19,31 @@ function initWatcher () {
       console.err(err)
     }
 
-    console.info(articles)
   })
 }
 
-function handleNewArticle (article) {
-  console.info(article)
+function handleNewArticle (data) {
+  const article = new Article({
+    date: data.date,
+    title: data.title,
+    content: data.description,
+    link: data.link,
+    rssGuid: data.guid,
+    categories: data.categories,
+    author: data.author,
+    parties: extractParties(data.title, data.description),
+    people: extractPeople(data.title, data.description)
+  })
+
+  article.save()
+}
+
+function extractParties (title, content) {
+  // ToDo: List all parties and "nicknames" and check
+  return []
+}
+
+function extractPeople (title, content) {
+  // ToDo: get all names and check if they occur
+  return []
 }

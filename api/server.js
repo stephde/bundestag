@@ -1,17 +1,23 @@
 const express = require('express')
 const rssConnector = require('./connectors/rssConnector')
+const db = require('./db/db')
 
 // Create express instance
 const app = express()
 
 // Require API routes
-const users = require('./routes/users')
+const routes = [
+  require('./routes/users'), require('./routes/articles')
+]
 
-// Import API Routes
-app.use(users)
+// start db
+db.init()
 
 // start rss watcher
 rssConnector.initWatcher()
+
+// Import API Routes
+routes.forEach(router => app.use(router))
 
 // Export the server middleware
 module.exports = {
