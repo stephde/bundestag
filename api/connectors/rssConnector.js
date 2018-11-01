@@ -25,7 +25,7 @@ function initWatcher () {
 
 async function handleNewArticle (data) {
   const title = parseString(data.title),
-      content = parseString(data.description)
+    content = parseString(data.description)
 
   const article = {
     date: data.date,
@@ -42,18 +42,26 @@ async function handleNewArticle (data) {
   await Article.findOneAndUpdate({link: article.link}, article, {upsert: true}).exec()
 }
 
-function parseString(subject) {
-  //remove soft hyphens
-  return subject.replace(/&shy;+/g,'')
+function parseString (subject) {
+  // remove soft hyphens
+  return subject.replace(/&shy;+/g, '')
 }
 
+const partyKeys = {
+  UNION: 'CDU/CSU',
+  SPD: 'SPD',
+  FDP: 'FDP',
+  LINKE: 'LINKE',
+  GRUENE: 'Grüne',
+  AFD: 'AFD'
+}
 const parties = [
-  {key: 'CDU/CSU', keyWords: ['CDU', 'CSU', 'die Union', 'Christdemokraten']},
-  {key: 'SPD', keyWords: ['SPD', 'Sozialdemokraten']},
-  {key: 'FDP', keyWords: ['FDP', 'die Liberalen']},
-  {key: 'LINKE', keyWords: ['LINKE']},
-  {key: 'Grüne', keyWords: ['Grüne', 'Grünen', 'Bündnis90']},
-  {key: 'AFD', keyWords: ['AFD', 'die Alternative']}
+  {key: partyKeys.UNION, keyWords: ['CDU', 'CSU', 'die Union', 'Christdemokraten']},
+  {key: partyKeys.SPD, keyWords: ['SPD', 'Sozialdemokraten']},
+  {key: partyKeys.FDP, keyWords: ['FDP', 'die Liberalen']},
+  {key: partyKeys.LINKE, keyWords: ['LINKE', 'Linke', 'Linkspartei']},
+  {key: partyKeys.GRUENE, keyWords: ['Grüne', 'Grünen', 'Bündnis90']},
+  {key: partyKeys.AFD, keyWords: ['AFD', 'AfD', 'die Alternative']}
 ]
 
 function containsKeyword (subject, keywords) {

@@ -1,5 +1,6 @@
 const { Router } = require('express')
 const bcrypt = require('bcrypt')
+const httpStatus = require('http-status')
 const User = require('../db/user')
 
 const router = Router()
@@ -28,8 +29,15 @@ router.post('/users', async function (req, res, next) {
     password: bcrypt.hashSync(req.body.password, BCRYPT_SALT_ROUNDS)
   }
 
+  const exists = await User.findOne({email: userData.email})
+
+  if (exists !== null) {
+    return res.status(httpStatus.CONFLICT).send(`The email address ${userData.email} is already in use`)
+  }
+
   const user = new User(userData)
   await user.save()
+  req.session.user = user
   res.json(user)
 })
 

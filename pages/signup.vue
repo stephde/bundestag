@@ -7,27 +7,15 @@
     </h1>
 
     <div class="container">
-      <h1>Please login to see the secret content</h1>
-      <form v-if="!$store.state.authUser" @submit.prevent="login">
+      <form v-if="!$store.state.authUser" @submit.prevent="signup">
         <p v-if="formError" class="error">{{ formError }}</p>
-        <p><i>To login, insert your <b>email</b> as and <b>password</b>.</i></p>
+        <p><i>To sign up, please insert your <b>email</b> and <b>password</b>.</i></p>
         <p>Email: <input v-model="formEmail" type="text" name="email"></p>
         <p>Password: <input v-model="formPassword" type="password" name="password"></p>
-        <button type="submit">Login</button>
-        <p>Or sign up <nuxt-link to="/signup">here</nuxt-link> if you do not have an account yet</p>
+        <p>Password: <input v-model="formPasswordRepeat" type="password" name="passwordRepeat"></p>
+        <button type="submit">Sign Up</button>
+        <p>Or go back to the <nuxt-link to="/signup">login</nuxt-link>.</p>
       </form>
-      <div v-else>
-        Hello {{ $store.state.authUser.email }}!
-        <nuxt-link class="button" to="/articles">
-          Articles
-        </nuxt-link>
-
-        <nuxt-link class="button" to="/users">
-          Users
-        </nuxt-link>
-
-        <button @click="logout">Logout</button>
-      </div>
     </div>
   </section>
 </template>
@@ -39,33 +27,33 @@ export default {
     return {
       formError: null,
       formEmail: '',
-      formPassword: ''
+      formPassword: '',
+      formPasswordRepeat: ''
     }
   },
   methods: {
-    async login () {
+    async signup () {
       try {
-        await this.$store.dispatch('login', {
+        if (this.formPassword !== this.formPasswordRepeat) {
+          throw new Error('Passowords do not match')
+        }
+        await this.$store.dispatch('signUp', {
           email: this.formEmail,
           password: this.formPassword
         })
         this.formEmail = ''
         this.formPassword = ''
+        this.formPasswordRepeat = ''
         this.formError = null
-      } catch (e) {
-        this.formError = e.message
-      }
-    },
-    async logout () {
-      try {
-        await this.$store.dispatch('logout')
+
+        this.$router.push('/')
       } catch (e) {
         this.formError = e.message
       }
     }
   },
   head () {
-      return {
+    return {
       title: 'Bundesfeed'
     }
   }

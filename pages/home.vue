@@ -7,8 +7,8 @@
     </h1>
 
     <nuxt-link class="button" to="/articles">
-      Articles
-    </nuxt-link>
+    Articles
+  </nuxt-link>
 
     <nuxt-link class="button" to="/users">
       Users

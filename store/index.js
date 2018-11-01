@@ -36,8 +36,19 @@ const actions = {
   async logout ({ commit }) {
     await axios.post('/api/logout')
     commit('SET_USER', null)
-  }
+  },
 
+  async signUp ({commit}, {email, password, username}) {
+    try {
+      const { data } = await axios.post('/api/users', {email, password, username})
+      commit('SET_USER', data)
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        throw new Error('Incomplete data')
+      }
+      throw error
+    }
+  }
 }
 
 const store = () => new Vuex.Store({state, mutations, actions})
