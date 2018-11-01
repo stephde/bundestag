@@ -41,9 +41,9 @@ module.exports = (passport) => {
   router.post('/login', function (req, res, next) {
     console.log('Inside POST /login callback')
     passport.authenticate('local', (err, user, info) => {
-      if (err || ! user) {
-          console.error(`Authentication failed due to: ${err}`)
-          return res.status(401).send(err)
+      if (err || !user) {
+        console.error(`Authentication failed due to: ${err}`)
+        return res.status(401).send(err)
       }
 
       req.login(user, (err) => {
@@ -52,10 +52,17 @@ module.exports = (passport) => {
           return res.status(401).send(err)
         }
 
-        //ToDo: update login timestamp
+        req.session.user = user
+
+        // ToDo: update login timestamp
         return res.send('You were authenticated & logged in!\n')
       })
     })(req, res, next)
+  })
+
+  router.post('/logout', (req, res, next) => {
+    delete req.session.user
+    res.redirect('/')
   })
 
   router.get('/authtest', (req, res, next) => {

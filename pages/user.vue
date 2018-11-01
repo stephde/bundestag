@@ -20,6 +20,7 @@ import axios from '~/plugins/axios'
 
 export default {
   name: 'id',
+  middleware: 'auth',
   asyncData ({ params, error }) {
     return axios.get('/api/users/' + params.id)
       .then((res) => {
