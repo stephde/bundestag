@@ -19,11 +19,12 @@ function initWatcher () {
       console.err(err)
     }
 
+    articles.forEach(handleNewArticle)
   })
 }
 
-function handleNewArticle (data) {
-  const article = new Article({
+async function handleNewArticle (data) {
+  const article = {
     date: data.date,
     title: data.title,
     content: data.description,
@@ -33,9 +34,9 @@ function handleNewArticle (data) {
     author: data.author,
     parties: extractParties(data.title, data.description),
     people: extractPeople(data.title, data.description)
-  })
+  }
 
-  article.save()
+  await Article.findOneAndUpdate({link: article.link}, article, {upsert: true}).exec()
 }
 
 function extractParties (title, content) {

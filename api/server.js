@@ -1,9 +1,11 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const rssConnector = require('./connectors/rssConnector')
 const db = require('./db/db')
 
 // Create express instance
 const app = express()
+app.use(bodyParser.json())
 
 // Require API routes
 const routes = [
