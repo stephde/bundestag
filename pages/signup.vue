@@ -14,7 +14,7 @@
         <p>Password: <input v-model="formPassword" type="password" name="password"></p>
         <p>Password: <input v-model="formPasswordRepeat" type="password" name="passwordRepeat"></p>
         <button type="submit">Sign Up</button>
-        <p>Or go back to the <nuxt-link to="/signup">login</nuxt-link>.</p>
+        <p>Or go back to the <nuxt-link to="/">login</nuxt-link>.</p>
       </form>
     </div>
   </section>

@@ -7,10 +7,9 @@
     </h1>
 
     <div class="container">
-      <h1>Please login to see the secret content</h1>
       <form v-if="!$store.state.authUser" @submit.prevent="login">
         <p v-if="formError" class="error">{{ formError }}</p>
-        <p><i>To login, insert your <b>email</b> as and <b>password</b>.</i></p>
+        <p><i>To login, insert your <b>email</b> and <b>password</b>.</i></p>
         <p>Email: <input v-model="formEmail" type="text" name="email"></p>
         <p>Password: <input v-model="formPassword" type="password" name="password"></p>
         <button type="submit">Login</button>
