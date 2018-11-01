@@ -14,4 +14,9 @@ router.get('/articles/:id', async (req, res, next) => {
   res.json(article)
 })
 
+router.delete('/articles', async (req, res, next) => {
+  await Article.deleteMany({}).exec()
+  res.send('Removed all articles')
+})
+
 module.exports = router

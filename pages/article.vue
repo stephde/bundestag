@@ -2,13 +2,19 @@
 <template>
   <section class="container">
     <img src="~assets/img/logo.png" alt="Nuxt.js Logo" class="logo" />
-    <h1 class="title">
-      Article
-    </h1>
     <h2 class="info">
       {{ article.title }}
     </h2>
-    <p>{{article.content}}</p>
+    <p class="pubdate">Published on {{pubDate}} at {{pubTime}}</p>
+    <p class="content">{{article.content}}</p>
+    <ul class="meta">
+      <li>Related Parties: {{article.parties.join(', ')}}</li>
+      <li>Related People: {{article.people.join(', ')}}</li>
+      <li></li>
+    </ul>
+    <a class="button" :href="article.link">
+      Original Post
+    </a>
     <nuxt-link class="button" to="/articles">
       Articles
     </nuxt-link>
@@ -24,7 +30,8 @@ export default {
   asyncData ({ params, error }) {
     return axios.get('/api/articles/' + params.id)
       .then((res) => {
-        return { article: res.data }
+        const pubDate = new Date(res.data.date);
+        return { article: res.data, pubDate: pubDate.toLocaleDateString(), pubTime: pubDate.toLocaleTimeString()}
       })
       .catch((e) => {
         error({ statusCode: 404, message: 'User not found' })
@@ -39,16 +46,28 @@ export default {
 </script>
 
 <style scoped>
-.title
-{
-  margin-top: 30px;
-}
 .info
 {
   font-weight: 300;
   color: #9aabb1;
   margin: 0;
   margin-top: 10px;
+}
+.pubdate
+{
+  font-size: smaller;
+}
+.content
+{
+  text-align: justify;
+  padding: 30px;
+  line-height: 1.3;
+}
+.meta > li
+{
+  list-style: none;
+  text-align: left;
+  padding: 10px;
 }
 .button
 {

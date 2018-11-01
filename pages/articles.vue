@@ -5,6 +5,9 @@
     <h1 class="title">
       Articles
     </h1>
+    <p class="results">
+      Found {{articles.length}} articles
+    </p>
     <ul class="users">
       <li v-for="(article, index) in articles" :key="index" class="user">
         <nuxt-link :to="{ name: 'article', params: { id: article._id }}">
