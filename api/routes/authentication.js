@@ -52,6 +52,7 @@ module.exports = (passport) => {
           return res.status(401).send(err)
         }
 
+        //ToDo: update login timestamp
         return res.send('You were authenticated & logged in!\n')
       })
     })(req, res, next)
