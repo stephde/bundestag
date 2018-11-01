@@ -5,6 +5,7 @@
   "author": "Stephan Detje",
   "scripts": {
     "dev": "nuxt",
+    "dev-debug": "node $NODE_DEBUG_OPTION node_modules/.bin/nuxt",
     "build": "nuxt build",
     "start": "nuxt build && nuxt start",
     "start-mongo": "mongod --dbpath ./data/db/",
@@ -13,13 +14,19 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "cross-env": "^5.0.1",
     "express": "^4.15.3",
+    "express-session": "^1.15.6",
     "mongoose": "^5.3.8",
     "nuxt": "latest",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "rss-watcher": "^1.4.0",
-    "source-map-support": "^0.4.15"
+    "session-file-store": "^1.2.0",
+    "source-map-support": "^0.4.15",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

@@ -1,7 +1,9 @@
 const { Router } = require('express')
+const bcrypt = require('bcrypt')
 const User = require('../db/user')
 
 const router = Router()
+const BCRYPT_SALT_ROUNDS = 10
 
 /* GET users listing. */
 router.get('/users', async function (req, res, next) {
@@ -22,18 +24,18 @@ router.post('/users', async function (req, res, next) {
   console.info(req.body)
   const userData = {
     username: req.body.username,
-    email: req.body.email
+    email: req.body.email,
+    password: bcrypt.hashSync(req.body.password, BCRYPT_SALT_ROUNDS)
   }
 
   const user = new User(userData)
-
   await user.save()
-
   res.json(user)
 })
 
 router.put('/users/:id', async function (req, res, next) {
   const id = req.params.id
+  const data = req.body
 
   const user = await User.findOneAndUpdate({_id: id}, data).exec()
 
