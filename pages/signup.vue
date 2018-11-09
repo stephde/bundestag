@@ -1,12 +1,12 @@
 {{{{raw}}}}
 <template>
-  <section class="container">
+  <section class="page-container">
     <img src="~assets/img/logo.png" alt="Nuxt.js Logo" class="logo" />
     <h1 class="title">
-      Bundes-Feed
+      Bundes-Feed App
     </h1>
 
-    <div class="container">
+    <div class="wrapper">
       <form v-if="!$store.state.authUser" @submit.prevent="signup">
         <p v-if="formError" class="error">{{ formError }}</p>
         <p><i>To sign up, please insert your <b>email</b> and <b>password</b>.</i></p>

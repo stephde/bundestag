@@ -4,7 +4,7 @@ const Article = require('../db/article')
 const router = Router()
 
 router.get('/articles', async (req, res, next) => {
-  const articles = await Article.find().exec()
+  const articles = await Article.find().sort({date: -1}).exec()
   res.json(articles)
 })
 

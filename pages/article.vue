@@ -1,7 +1,6 @@
 {{{{raw}}}}
 <template>
-  <section class="container">
-    <img src="~assets/img/logo.png" alt="Nuxt.js Logo" class="logo" />
+  <section class="page-container">
     <h2 class="info">
       {{ article.title }}
     </h2>

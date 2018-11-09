@@ -35,4 +35,8 @@ mongod --dbpath ./data/db
 * statistics
 * signup with GitHub & Google
 * add new data sources
+* for articles with multiple parties selective vote
+* underline sentences with quotes
+* extract keywords
+* new logo
 * ...

@@ -19,19 +19,19 @@ export default {
 </script>
 
 <style>
-.container {
+.page-container {
   margin: 0 5vw;
   padding: 100px 0;
   text-align: center;
 }
 @media only screen and (min-width: 850px) {
-  .container {
+  .page-container {
     margin-left: 20vw;
     margin-right: 20vw;
   }
 }
 @media only screen and (min-width: 1400px) {
-  .container {
+  .page-container {
     margin-left: 30vw;
     margin-right: 30vw;
   }
