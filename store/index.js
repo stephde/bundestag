@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
+import api from '~/plugins/api'
+import userService from '~/plugins/service/userService'
 
 Vue.use(Vuex)
 
@@ -8,9 +9,18 @@ const state = () => ({
   authUser: null
 })
 
+const getters = {
+  user: state => state.authUser
+}
+
 const mutations = {
   SET_USER: function (state, user) {
     state.authUser = user
+  },
+  SET_ARTICLE_READ: (state, articleId) => {
+    if (!state.authUser.readArticles.includes(articleId)) {
+      state.authUser.readArticles.push(articleId)
+    }
   }
 }
 
@@ -23,7 +33,7 @@ const actions = {
   },
   async login ({ commit }, { email, password }) {
     try {
-      const { data } = await axios.post('/api/login', { email, password })
+      const { data } = await api.axios.post('/api/login', { email, password })
       commit('SET_USER', data)
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -34,13 +44,13 @@ const actions = {
   },
 
   async logout ({ commit }) {
-    await axios.post('/api/logout')
+    await api.axios.post('/api/logout')
     commit('SET_USER', null)
   },
 
   async signUp ({commit}, {email, password, username}) {
     try {
-      const { data } = await axios.post('/api/users', {email, password, username})
+      const { data } = await api.axios.post('/api/users', {email, password, username})
       commit('SET_USER', data)
     } catch (error) {
       if (error.response && error.response.status === 400) {
@@ -48,9 +58,21 @@ const actions = {
       }
       throw error
     }
+  },
+
+  async articleRead ({commit}, {user, articleId}) {
+    const userCopy = Object.assign({}, user)
+
+    if (userCopy.readArticles.includes(articleId)) {
+      return
+    }
+
+    userCopy.readArticles.push(articleId)
+    await userService.update(userCopy)
+    commit('SET_ARTICLE_READ', articleId)
   }
 }
 
-const store = () => new Vuex.Store({state, mutations, actions})
+const store = () => new Vuex.Store({state, mutations, actions, getters})
 
 export default store

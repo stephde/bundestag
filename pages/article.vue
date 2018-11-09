@@ -44,6 +44,9 @@ export default {
     return {
       title: `${this.article.title}`
     }
+  },
+  async mounted () {
+    await this.$store.dispatch('articleRead', {articleId: this.article._id, user: this.$store.getters.user})
   }
 }
 </script>

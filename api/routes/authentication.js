@@ -10,7 +10,7 @@ module.exports = (passport) => {
     { usernameField: 'email' },
     async (email, password, done) => {
       console.log('Inside local strategy callback')
-      const user = await User.findOne({email: email}).exec()
+      const user = await User.findOne({email: email}).lean().exec()
       if (user && bcrypt.compareSync(password, user.password)) {
         console.log('Local strategy returned true')
         return done(null, user)
@@ -55,7 +55,7 @@ module.exports = (passport) => {
         req.session.user = user
 
         // ToDo: update login timestamp
-        return res.send('You were authenticated & logged in!\n')
+        return res.json(user)
       })
     })(req, res, next)
   })

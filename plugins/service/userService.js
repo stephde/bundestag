@@ -2,7 +2,7 @@ import api from '../api'
 
 export default {
   update: async (user) => {
-    const response = await api.axios.put(`/api/users/${user._id}`)
+    const response = await api.axios.put(`/api/users/${user._id}`, user)
 
     if (response.status !== 200) {
       api.handleApiError(response)

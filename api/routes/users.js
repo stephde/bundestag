@@ -8,7 +8,7 @@ const BCRYPT_SALT_ROUNDS = 10
 
 /* GET users listing. */
 router.get('/users', async function (req, res, next) {
-  const users = await User.find({}).exec()
+  const users = await User.find({}).lean().exec()
   res.json(users)
 })
 
@@ -16,7 +16,7 @@ router.get('/users', async function (req, res, next) {
 router.get('/users/:id', async function (req, res, next) {
   const id = req.params.id
 
-  const user = await User.findById(id).exec()
+  const user = await User.findById(id).lean().exec()
 
   res.json(user)
 })
@@ -44,8 +44,15 @@ router.post('/users', async function (req, res, next) {
 router.put('/users/:id', async function (req, res, next) {
   const id = req.params.id
   const data = req.body
+  delete data._id
 
-  const user = await User.findOneAndUpdate({_id: id}, data).exec()
+  const user = await User.findOneAndUpdate(
+    {_id: id},
+    {$set: data},
+    {new: true},
+  ).lean().exec()
+
+  console.info(JSON.stringify(user))
 
   res.json(user)
 })

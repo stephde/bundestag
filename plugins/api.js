@@ -9,7 +9,7 @@ if (process.server) {
 export default {
   axios: axios.create(options),
   handleApiError: response => {
-      console.error(JSON.stringify(response));
-      error({statusCode: response.status(), message: response.message()})
+    console.error(JSON.stringify(response))
+    error({statusCode: response.status(), message: response.message()})
   }
 }

@@ -4,13 +4,13 @@ const Article = require('../db/article')
 const router = Router()
 
 router.get('/articles', async (req, res, next) => {
-  const articles = await Article.find().sort({date: -1}).exec()
+  const articles = await Article.find().sort({date: -1}).lean().exec()
   res.json(articles)
 })
 
 router.get('/articles/:id', async (req, res, next) => {
   const id = req.params.id
-  const article = await Article.findById(id).exec()
+  const article = await Article.findById(id).lean().exec()
   res.json(article)
 })
 
