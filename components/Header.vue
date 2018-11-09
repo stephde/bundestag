@@ -13,7 +13,7 @@
     export default {
       methods: {
         async logout () {
-            console.log('Logout handler called')
+          console.log('Logout handler called')
           await this.$store.dispatch('logout')
           this.$router.push('/')
         }

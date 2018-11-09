@@ -24,14 +24,18 @@
 
 <script>
 import axios from '~/plugins/axios'
+import dateUtils from '~/plugins/dateUtil'
 
 export default {
   name: 'article',
   asyncData ({ params, error }) {
     return axios.get('/api/articles/' + params.id)
       .then((res) => {
-        const pubDate = new Date(res.data.date);
-        return { article: res.data, pubDate: pubDate.toLocaleDateString(), pubTime: pubDate.toLocaleTimeString()}
+        return {
+          article: res.data,
+          pubDate: dateUtils.dateString(res.data.date),
+          pubTime: dateUtils.timeString(res.data.date)
+        }
       })
       .catch((e) => {
         error({ statusCode: 404, message: 'User not found' })

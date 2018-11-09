@@ -8,11 +8,9 @@
     <p class="results">
       Found {{articles.length}} articles
     </p>
-    <ul class="users">
-      <li v-for="(article, index) in articles" :key="index" class="user">
-        <nuxt-link :to="{ name: 'article', params: { id: article._id }}">
-          {{ article.title}}
-        </nuxt-link>
+    <ul class="articles">
+      <li v-for="(article, index) in articles" :key="index" class="article">
+        <tile :article="article"></tile>
       </li>
     </ul>
   </section>
@@ -21,9 +19,11 @@
 
 <script>
 import axios from '~/plugins/axios'
+import Tile from "../components/tile";
 
 export default {
-  async asyncData () {
+    components: {Tile},
+    async asyncData () {
     let { data } = await axios.get('/api/articles')
     return { articles: data }
   },
@@ -36,18 +36,19 @@ export default {
 </script>
 
 <style scoped>
-.title
-{
+.title {
   margin: 30px 0;
 }
-.users
-{
+.articles {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.user
-{
-  margin: 10px 0;
+.article {
+   border-bottom: solid lightgray 1px;
+}
+.article:hover {
+  transition: background-color 1s;
+  background-color: lightgray;
 }
 </style>
