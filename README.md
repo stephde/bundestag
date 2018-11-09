@@ -25,7 +25,6 @@ mongod --dbpath ./data/db
 
 ## Issues / Features / ToDo's
 * Mobile Usage (touch control)
-* set read for articles
 * Vote on articles
 * Header should contain link to home
 * Deployment
@@ -39,4 +38,6 @@ mongod --dbpath ./data/db
 * underline sentences with quotes
 * extract keywords
 * new logo
+* mark as read later
+* add admin view (users, statistics)
 * ...

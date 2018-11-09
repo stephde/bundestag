@@ -36,6 +36,7 @@ module.exports = {
       }
     }
   },
+  plugins: ['~/plugins/fontawesome.js'],
   serverMiddleware: [
     // API middleware
     '~/api/server.js'

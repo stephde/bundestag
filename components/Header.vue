@@ -1,5 +1,10 @@
 <template>
   <header>
+    <nuxt-link to="/">
+      <div class="home">
+        <font-awesome-icon icon="home"></font-awesome-icon>
+      </div>
+    </nuxt-link>
     <h1>
       Bundes-Feed
     </h1>
@@ -10,15 +15,16 @@
 </template>
 
 <script>
-    export default {
-      methods: {
-        async logout () {
-          console.log('Logout handler called')
-          await this.$store.dispatch('logout')
-          this.$router.push('/')
-        }
+  import fontawesome from '~/plugins/fontawesome'
+  export default {
+    methods: {
+      async logout () {
+        console.log('Logout handler called')
+        await this.$store.dispatch('logout')
+        this.$router.push('/')
       }
     }
+  }
 </script>
 
 <style>
@@ -30,6 +36,18 @@
     margin: 0;
     padding: 25px;
     text-align: center;
+  }
+  .home {
+    height: 55px;
+    width: 55px;
+    padding: 10px;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .home > svg {
+    width: 100%;
+    height: 100%;
   }
   .logout {
     position: absolute;
