@@ -17,12 +17,12 @@
 {{{{/raw}}}}
 
 <script>
-import axios from '~/plugins/axios'
+import userService from '~/plugins/service/userService'
 
 export default {
   async asyncData () {
-    let { data } = await axios.get('/api/users')
-    return { users: data }
+    let users = await userService.getUsers()
+    return { users: users }
   },
   head () {
     return {

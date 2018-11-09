@@ -22,13 +22,13 @@
 {{{{/raw}}}}
 
 <script>
-import axios from '~/plugins/axios'
+import api from '~/plugins/api'
 import dateUtils from '~/plugins/dateUtil'
 
 export default {
   name: 'article',
   asyncData ({ params, error }) {
-    return axios.get('/api/articles/' + params.id)
+    return api.axios.get('/api/articles/' + params.id)
       .then((res) => {
         return {
           article: res.data,

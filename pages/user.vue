@@ -16,19 +16,14 @@
 {{{{/raw}}}}
 
 <script>
-import axios from '~/plugins/axios'
+import userService from '~/plugins/service/userService'
 
 export default {
   name: 'id',
   middleware: 'auth',
-  asyncData ({ params, error }) {
-    return axios.get('/api/users/' + params.id)
-      .then((res) => {
-        return { user: res.data }
-      })
-      .catch((e) => {
-        error({ statusCode: 404, message: 'User not found' })
-      })
+  async asyncData ({ params, error }) {
+    let user = await userService.getUser(params.id)
+    return { user }
   },
   head () {
     return {

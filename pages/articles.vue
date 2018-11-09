@@ -17,13 +17,13 @@
 {{{{/raw}}}}
 
 <script>
-import axios from '~/plugins/axios'
+import api from '~/plugins/api'
 import Tile from "../components/tile";
 
 export default {
     components: {Tile},
     async asyncData () {
-    let { data } = await axios.get('/api/articles')
+    let { data } = await api.axios.get('/api/articles')
     return { articles: data }
   },
   head () {

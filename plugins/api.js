@@ -6,4 +6,10 @@ if (process.server) {
   options.baseURL = `http://${process.env.HOST || 'localhost'}:${process.env.PORT || 3000}`
 }
 
-export default axios.create(options)
+export default {
+  axios: axios.create(options),
+  handleApiError: response => {
+      console.error(JSON.stringify(response));
+      error({statusCode: response.status(), message: response.message()})
+  }
+}
