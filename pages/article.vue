@@ -11,10 +11,10 @@
       <li>Related People: {{article.people.join(', ')}}</li>
       <li></li>
     </ul>
-    <v-btn small absolute bottom left fixed fab color="red">
+    <v-btn small absolute bottom left fixed fab color="red" @click="dislike">
       <v-icon medium color="white">block</v-icon>
     </v-btn>
-    <v-btn small absolute bottom right fixed fab color="green">
+    <v-btn small absolute bottom right fixed fab color="green" @click="like">
       <v-icon medium color="white">check_circle</v-icon>
     </v-btn>
 
@@ -40,12 +40,22 @@ export default {
         return {
           article: res.data,
           pubDate: dateUtils.dateString(res.data.date),
-          pubTime: dateUtils.timeString(res.data.date)
+          pubTime: dateUtils.timeString(res.data.date),
         }
       })
       .catch((e) => {
         error({ statusCode: 404, message: 'User not found' })
       })
+  },
+  methods: {
+    like () {
+      this.$store.dispatch('likeArticle', {articleId: this.article._id, user: this.$store.getters.user})
+      this.$router.push('/articles')
+    },
+    dislike () {
+      this.$store.dispatch('dislikeArticle', {articleId: this.article._id, user: this.$store.getters.user})
+      this.$router.push('/articles')
+    }
   },
   head () {
     return {

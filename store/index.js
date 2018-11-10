@@ -21,6 +21,16 @@ const mutations = {
     if (!state.authUser.readArticles.includes(articleId)) {
       state.authUser.readArticles.push(articleId)
     }
+  },
+  LIKE_ARTICLE: (state, articleId) => {
+    if (!state.authUser.likedArticles.includes(articleId)) {
+      state.authUser.likedArticles.push(articleId)
+    }
+  },
+  DISLIKE_ARTICLE: (state, articleId) => {
+    if (!state.authUser.dislikedArticles.includes(articleId)) {
+      state.authUser.dislikedArticles.push(articleId)
+    }
   }
 }
 
@@ -61,16 +71,30 @@ const actions = {
   },
 
   async articleRead ({commit}, {user, articleId}) {
-    const userCopy = Object.assign({}, user)
-
-    if (userCopy.readArticles.includes(articleId)) {
-      return
-    }
-
-    userCopy.readArticles.push(articleId)
-    await userService.update(userCopy)
+    await updateUserArticle(user, articleId, 'readArticles')
     commit('SET_ARTICLE_READ', articleId)
+  },
+
+  async likeArticle ({commit}, {user, articleId}) {
+    await updateUserArticle(user, articleId, 'likedArticles')
+    commit('LIKE_ARTICLE', articleId)
+  },
+
+  async dislikeArticle ({commit}, {user, articleId}) {
+    await updateUserArticle(user, articleId, 'dislikedArticles')
+    commit('DISLIKE_ARTICLE', articleId)
   }
+}
+
+function updateUserArticle (user, articleId, attributeKey) {
+  const userCopy = Object.assign({}, user)
+
+  if (userCopy[attributeKey].includes(articleId)) {
+    return
+  }
+
+  userCopy[attributeKey].push(articleId)
+  return userService.update(userCopy)
 }
 
 const store = () => new Vuex.Store({state, mutations, actions, getters})
