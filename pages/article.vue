@@ -15,7 +15,7 @@
       <v-icon medium color="white">block</v-icon>
     </v-btn>
     <v-btn small absolute bottom right fixed fab color="green" @click="like">
-      <v-icon medium color="white">check_circle</v-icon>
+      <v-icon medium color="white">done</v-icon>
     </v-btn>
 
     <a class="button" :href="article.link">
