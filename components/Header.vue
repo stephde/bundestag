@@ -1,16 +1,20 @@
 <template>
   <header>
-    <nuxt-link to="/">
-      <div class="home">
-        <font-awesome-icon icon="home"></font-awesome-icon>
-      </div>
-    </nuxt-link>
-    <h1>
-      Bundes-Feed
-    </h1>
-    <div v-if="$store.state.authUser" v-on:click="logout" class="logout">
-      Log Out
-    </div>
+    <v-toolbar dark color="primary">
+      <nuxt-link to="/">
+        <v-btn icon>
+            <v-icon class="home">home</v-icon>
+        </v-btn>
+      </nuxt-link>
+
+      <v-toolbar-title class="white--text">Bundes-Feed</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-btn icon v-if="$store.state.authUser" v-on:click="logout" class="logout">
+          <v-icon>logout</v-icon>
+      </v-btn>
+    </v-toolbar>
   </header>
 </template>
 
@@ -38,16 +42,7 @@
     text-align: center;
   }
   .home {
-    height: 55px;
-    width: 55px;
-    padding: 10px;
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-  .home > svg {
-    width: 100%;
-    height: 100%;
+    text-decoration: none;
   }
   .logout {
     position: absolute;
