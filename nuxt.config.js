@@ -36,7 +36,10 @@ module.exports = {
       }
     }
   },
-  plugins: ['~/plugins/fontawesome.js'],
+  plugins: [
+    '~/plugins/fontawesome.js',
+    '~/plugins/vuetify.js'
+  ],
   serverMiddleware: [
     // API middleware
     '~/api/server.js'

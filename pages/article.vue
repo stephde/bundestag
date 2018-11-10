@@ -11,6 +11,13 @@
       <li>Related People: {{article.people.join(', ')}}</li>
       <li></li>
     </ul>
+    <v-btn small absolute bottom left fixed fab color="red">
+      <v-icon medium color="white">block</v-icon>
+    </v-btn>
+    <v-btn small absolute bottom right fixed fab color="green">
+      <v-icon medium color="white">check_circle</v-icon>
+    </v-btn>
+
     <a class="button" :href="article.link">
       Original Post
     </a>
@@ -26,7 +33,7 @@ import api from '~/plugins/api'
 import dateUtils from '~/plugins/dateUtil'
 
 export default {
-  name: 'article',
+  name: 'barticle',
   asyncData ({ params, error }) {
     return api.axios.get('/api/articles/' + params.id)
       .then((res) => {
@@ -52,31 +59,29 @@ export default {
 </script>
 
 <style scoped>
-.info
-{
+.info {
   font-weight: 300;
   color: #9aabb1;
   margin: 0;
   margin-top: 10px;
 }
-.pubdate
-{
+.pubdate {
   font-size: smaller;
 }
-.content
-{
+.content {
   text-align: justify;
   padding: 30px;
   line-height: 1.3;
 }
-.meta > li
-{
+.meta > li {
   list-style: none;
   text-align: left;
   padding: 10px;
 }
-.button
-{
+.button {
   margin-top: 30px;
+}
+button.v-btn {
+  bottom: 20px !important;
 }
 </style>
