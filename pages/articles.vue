@@ -30,7 +30,8 @@ export default {
     return {
       title: 'Articles'
     }
-  }
+  },
+  middleware: 'auth'
 }
 </script>
 

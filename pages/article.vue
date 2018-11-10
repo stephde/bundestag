@@ -64,7 +64,8 @@ export default {
   },
   async mounted () {
     await this.$store.dispatch('articleRead', {articleId: this.article._id, user: this.$store.getters.user})
-  }
+  },
+  middleware: 'auth'
 }
 </script>
 

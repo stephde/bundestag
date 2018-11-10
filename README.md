@@ -25,8 +25,6 @@ mongod --dbpath ./data/db
 
 ## Issues / Features / ToDo's
 * Mobile Usage (touch control)
-* Vote on articles
-* Header should contain link to home
 * Deployment
 * filter (e.g. by party)
 * sorting
