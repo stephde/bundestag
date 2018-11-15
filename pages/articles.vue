@@ -18,11 +18,11 @@
 
 <script>
 import api from '~/plugins/api'
-import Tile from "../components/tile";
+import Tile from '../components/tile'
 
 export default {
-    components: {Tile},
-    async asyncData () {
+  components: {Tile},
+  async asyncData () {
     let { data } = await api.axios.get('/api/articles')
     return { articles: data }
   },
@@ -45,7 +45,7 @@ export default {
   padding: 0;
 }
 .article {
-   border-bottom: solid lightgray 1px;
+   border-bottom: solid #90A4AE 1px;
 }
 .article:hover {
   transition: background-color 1s;

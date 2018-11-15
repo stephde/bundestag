@@ -16,16 +16,12 @@
         <p>Or sign up <nuxt-link to="/signup">here</nuxt-link> if you do not have an account yet</p>
       </form>
       <div v-else>
-        Hello {{ $store.state.authUser.email }}!
-        <nuxt-link class="button" to="/articles">
-          Articles
-        </nuxt-link>
-
-        <nuxt-link class="button" to="/users">
-          Users
-        </nuxt-link>
-
-        <button @click="logout">Logout</button>
+        <h3>Hello {{ $store.state.authUser.email }}!</h3>
+        <p>
+          Where do you want to go next?
+        </p>
+        <v-btn color="primary" to="/articles">Articles</v-btn>
+        <v-btn color="primary" to="/users">Users</v-btn>
       </div>
     </div>
   </section>
@@ -33,6 +29,7 @@
 {{{{/raw}}}}
 
 <script>
+
 export default {
   data () {
     return {
@@ -51,17 +48,11 @@ export default {
         this.formEmail = ''
         this.formPassword = ''
         this.formError = null
+        this.$router.push('/articles')
       } catch (e) {
         this.formError = e.message
       }
     },
-    async logout () {
-      try {
-        await this.$store.dispatch('logout')
-      } catch (e) {
-        this.formError = e.message
-      }
-    }
   },
   head () {
       return {

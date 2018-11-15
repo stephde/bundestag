@@ -3,7 +3,7 @@
     <v-toolbar dark color="primary">
       <nuxt-link to="/">
         <v-btn icon>
-            <v-icon class="home">home</v-icon>
+            <v-icon class="home" color="secondary">home</v-icon>
         </v-btn>
       </nuxt-link>
 
@@ -11,8 +11,13 @@
 
       <v-spacer></v-spacer>
 
+      <nuxt-link to="/users">
+        <v-btn icon>
+          <v-icon class="home" color="secondary">person</v-icon>
+        </v-btn>
+      </nuxt-link>
       <v-btn icon v-if="$store.state.authUser" v-on:click="logout" class="logout">
-          <v-icon>logout</v-icon>
+          <v-icon color="secondary">logout</v-icon>
       </v-btn>
     </v-toolbar>
   </header>
