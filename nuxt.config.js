@@ -43,5 +43,8 @@ module.exports = {
   serverMiddleware: [
     // API middleware
     '~/api/server.js'
-  ]
+  ],
+  server: {
+    port: process.env.PORT || 3000
+  }
 }
