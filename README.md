@@ -18,14 +18,13 @@ $ npm start
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
 
 ## DB
-start mongo daemon by using:
+start local mongo daemon by using:
 ``` bash
 mongod --dbpath ./data/db
 ```
 
 ## Issues / Features / ToDo's
 * Mobile Usage (touch control)
-* Deployment
 * filter (e.g. by party)
 * sorting
 * Design
