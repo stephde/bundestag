@@ -2,6 +2,8 @@
 
 Bundestag newsfeed app
 
+[![Build Status](https://travis-ci.org/stephde/bundestag.svg?branch=master)](https://travis-ci.org/stephde/bundestag)
+
 ## Build Setup
 
 ``` bash
